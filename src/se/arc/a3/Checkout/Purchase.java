@@ -23,10 +23,67 @@
  */
 package se.arc.a3.Checkout;
 
+import se.arc.a3.User.User;
+
 /**
  *
  * @author Eli
  */
 public class Purchase {
+    
+    private final String address;
+    private final CartEntry[] items;
+    private final User user;
+    private final int creditCardNumber;
+    
+    public Purchase(User user, String address, CartEntry[] cart){
+        this.user = user;
+        this.creditCardNumber = user.getCreditCardNumber();
+        this.items = cart;
+        this.address = address;
+    }
+    
+    /**
+     * 
+     * @return price of all cart entries added together 
+     */
+    public double getPrice() {
+        
+        double total = 0.0;
+        
+        for (CartEntry item : getItems()) {
+            total += item.getPrice();
+        }
+        
+        return total;
+    }
+
+    /**
+     * @return the address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * @return the items
+     */
+    public CartEntry[] getItems() {
+        return items;
+    }
+
+    /**
+     * @return the user
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * @return the creditCardNumber
+     */
+    public int getCreditCardNumber() {
+        return creditCardNumber;
+    }
     
 }

@@ -29,4 +29,10 @@ package se.arc.a3.User;
  */
 public class User {
     
+    private int  creditCardNumber;
+    
+    public int getCreditCardNumber() {
+        return creditCardNumber;
+    }
+    
 }

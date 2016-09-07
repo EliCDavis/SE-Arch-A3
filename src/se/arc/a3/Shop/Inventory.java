@@ -29,4 +29,6 @@ package se.arc.a3.Shop;
  */
 public class Inventory {
     
+    
+    
 }
