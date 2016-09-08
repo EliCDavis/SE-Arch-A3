@@ -1,0 +1,27 @@
+Books
+To Kill A Mockingbird - B1 - 10 
+The Great Gatsby - B2 - 4
+Lolita - B3 - 7
+The Grapes of Wrath - B4 - 15
+The Catcher in The Rye - B5 - 2
+
+Toys
+Big Wheel - T1 - 20
+Jacks - T2 - 5
+Jump Rope - T3 - 10 
+Marbles - T4 - 2
+Nerf Gun - T5 - 15
+
+Household
+Couch - H1 - 200
+Chair - H2 - 150
+Loveseat - H3 - 125
+Hammock - H4 - 50
+Table - H5 - 60
+
+Electronics
+Laptop - E1 - 1000
+Watch - E2 - 250
+Calculator - E3 - 100
+Keyboard - E4 - 25
+Mouse - E5 - 15
