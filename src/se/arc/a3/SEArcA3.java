@@ -23,17 +23,68 @@
  */
 package se.arc.a3;
 
-/**
- *
- * @author Eli
- */
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import se.arc.a3.Storage.Database;
+import se.arc.a3.User.User;
+ 
 public class SEArcA3 {
+    /*
+    *
+    @author Josh
+    */
+    public static void main(String[] args) throws FileNotFoundException {
+        User[] loadedUsers = Database.getUsers();
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+        int count = 3; 
+        while (count > 0) {
+            Scanner s = new Scanner(System.in);  
+            System.out.print("Please enter your username: ");
+            
+            String dataEntry = s.nextLine();
+            
+            for(User user : loadedUsers){
+                if (user.getUsername().equals(dataEntry)) {
+                    count = 0;
+                    menu(user.getName());
+                }                          
+            }
+            
+            count--;
+            System.out.println("Sorry, that username isn't in our system.");
+            System.out.println(count + " attempts remaining.");
+        }
+    } 
     
+    public static void menu(String name) {
+        
+        System.out.println("\n**********************************");
+        System.out.println("Welcome, " + name + "!");
+        System.out.println("What would you like to do today?");
+        System.out.println("1. View Purchase History");
+        System.out.println("2. Browse inventory");
+        System.out.println("3. Logout");
+        System.out.println("**********************************");
+        System.out.print("Select your choice: ");
+        
+        Scanner choice = new Scanner(System.in);
+        
+        while (true) {
+            switch (choice.nextLine()) {
+                case "1":
+                    System.out.println("Purchase history choice needs to go here.");
+                    break;
+                case "2":
+                    System.out.println("Browse Inventory needs to go here");
+                    break;
+                case "3":
+                    System.out.println("You have successfully logged out!");
+                    System.exit(0);
+                default:
+                    System.out.println("Sorry, invalid choice.");
+            }
+        }   
+    }
 }
+
+

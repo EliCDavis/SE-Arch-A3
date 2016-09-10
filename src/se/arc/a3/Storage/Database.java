@@ -23,10 +23,39 @@
  */
 package se.arc.a3.Storage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import se.arc.a3.Shop.Inventory;
+import se.arc.a3.User.User;
+
 /**
  *
- * @author Eli
+ * @author Josh
  */
 public class Database {
+     
+    public static User[] getUsers() throws FileNotFoundException {
+        
+        File file = new File("./src/se/arc/a3/Storage/db_users.txt");
+        Scanner s = new Scanner(file);
+        List<User> users = new ArrayList<>();
+        
+        while (s.hasNext()) {
+            
+            String[] vars = s.nextLine().split("-");
+            users.add(new User(vars[1].trim(), vars[0].trim()));
+        }
+        
+        User[] temp = new User[users.size()];
+        temp = users.toArray(temp);
+        return temp;
+    }
     
+    /**
+     * Private constructor so Database can never be instantiated
+     */
+    private Database() {}
 }

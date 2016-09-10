@@ -22,17 +22,41 @@
  * THE SOFTWARE.
  */
 package se.arc.a3.User;
-
-/**
- *
- * @author Eli
- */
+import se.arc.a3.Checkout.Cart;
+import se.arc.a3.Checkout.Purchase;
+        
 public class User {
     
+    private String name;
+    private String id;
     private int  creditCardNumber;
+    private Cart cart;
+    private Purchase[] purchase;
+    
+    public User(String name, String id){
+        this.name = name;
+        this.id = id;
+        this.cart = new Cart();
+        this.purchase = null;
+    }
+    
+    public Purchase[] viewPastPurchases() {
+        return purchase;
+    }
     
     public int getCreditCardNumber() {
         return creditCardNumber;
+    }
+    public String getUsername() {
+        return id;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public String toString() {
+       return "Id: "+ id + "; Name: " + name+";";
     }
     
 }
