@@ -31,7 +31,7 @@ import se.arc.a3.Shop.Item;
  */
 public class BookItem extends Item {
     
-    public BookItem(String name, double price, int productId) {
+    public BookItem(String name, double price, String productId) {
         super(name, price, productId);
     }
     

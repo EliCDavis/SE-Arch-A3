@@ -23,12 +23,34 @@
  */
 package se.arc.a3.Shop;
 
+import se.arc.a3.Storage.Database;
+
 /**
  *
  * @author Eli
  */
 public class Inventory {
     
+    private static Inventory instance = null;
+
+    private final Item[] items;
     
+    private Inventory(){
+        this.items = Database.getItems();
+    }
+    
+    
+    public static Inventory getInstance(){
+        
+        if(instance == null){
+            instance = new Inventory();
+        }
+        
+        return instance;        
+    }
+    
+    public Item[] getItems(){
+        return this.items;
+    }
     
 }

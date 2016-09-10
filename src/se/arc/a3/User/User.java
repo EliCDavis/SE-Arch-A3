@@ -27,11 +27,11 @@ import se.arc.a3.Checkout.Purchase;
         
 public class User {
     
-    private String name;
-    private String id;
+    private final String name;
+    private final String id;
     private int  creditCardNumber;
-    private Cart cart;
-    private Purchase[] purchase;
+    private final Cart cart;
+    private final Purchase[] purchase;
     
     public User(String name, String id){
         this.name = name;
@@ -55,8 +55,9 @@ public class User {
         return name;
     }
     
+    @Override
     public String toString() {
-       return "Id: "+ id + "; Name: " + name+";";
+       return "Id: " + id + "; Name: " + name + ";";
     }
     
 }

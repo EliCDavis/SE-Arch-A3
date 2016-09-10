@@ -31,9 +31,9 @@ public abstract class Item {
     
     private final String name;
     private final double price;
-    private final int id;
+    private final String id;
     
-    public Item(String name, double price, int productId) {
+    public Item(String name, double price, String productId) {
         this.name = name;
         this.price = price;
         this.id = productId;
@@ -47,8 +47,12 @@ public abstract class Item {
         return price;
     }
     
-    public int getId(){
+    public String getId(){
         return id;
     }
     
+    @Override
+    public String toString() {
+        return "Item: " + id +" - " + name + " ($"+ price +");";
+    }
 }
