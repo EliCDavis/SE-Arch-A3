@@ -1,16 +1,16 @@
 Books
-To Kill A Mockingbird - B1 - 10 
-The Great Gatsby - B2 - 4
-Lolita - B3 - 7
-The Grapes of Wrath - B4 - 15
-The Catcher in The Rye - B5 - 2
+To Kill A Mockingbird - B1 - 10 - Author - 1234848461548 - publisher
+The Great Gatsby - B2 - 4 - Author - 73943454548943 - publisher
+Lolita - B3 - 7 - Author -1387384914973 - publisher
+The Grapes of Wrath - B4 - 15 - Author - 78494856516487 - publisher
+The Catcher in The Rye - B5 - 2 - Author - 1212181964786 - publisher
 
 Toys
-Big Wheel - T1 - 20
-Jacks - T2 - 5
-Jump Rope - T3 - 10 
-Marbles - T4 - 2
-Nerf Gun - T5 - 15
+Big Wheel - T1 - 20 - brand - boy
+Jacks - T2 - 5  - brand - girl
+Jump Rope - T3 - 10 - brand - girl
+Marbles - T4 - 2 - brand - boy
+Nerf Gun - T5 - 15 - brand - boy
 
 Household
 Couch - H1 - 200
