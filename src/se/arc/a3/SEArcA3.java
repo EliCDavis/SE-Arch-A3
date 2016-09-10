@@ -32,7 +32,7 @@ import se.arc.a3.Storage.Database;
 import se.arc.a3.User.User;
 
 /**
- * 
+ *
  * @author Josh Church && Eli Davis
  */
 public class SEArcA3 {
@@ -49,7 +49,6 @@ public class SEArcA3 {
             String dataEntry = s.nextLine();
 
             for (User user : loadedUsers) {
-                System.out.println(user);
                 if (user.getUsername().equals(dataEntry)) {
                     count = 0;
                     menu(user.getName());
@@ -62,14 +61,47 @@ public class SEArcA3 {
         }
     }
 
-    public static void viewItems(Class specifier) {
+    public static void listShopOptions(){
+        System.out.println("Options:");
+        
+        System.out.println("\tadd <choice> [<quantity>]");
+        System.out.println("\t\tex: 'add 3 10', which adds item 3, 10 times to cart");
+        
+        System.out.println("\trm  <choice> [<quantity>]");
+        System.out.println("\t\tex: 'rm 3 10', which removes item 3, 10 times from cart");
+        System.out.println("\t\tex: 'rm 2', removes all instances of item 2");
+        
+        System.out.println("\tcheckout  <creditcard number> <shipping adress>");
+        System.out.println("\t\tDescription");
+        System.out.println("\t\t\tTake what you have added to your cart");
+        System.out.println("\t\t\tand build a purchase associated with your user.");
+        System.out.println("\t\tex: 'checkout 1121212423451125 2152 Bridlewood Cove'");
+        
+        System.out.println("\tmain");
+        System.out.println("\t\tDescription");
+        System.out.println("\t\t\tTakes you back to main menu");
+    }
+    
+    public static void enterShop() {
 
         Item[] items = Inventory.getInstance().getItems();
 
-        System.out.println("\nInventory:");
-        for (Item item : items) {
-            if (specifier == null || item.getClass().equals(specifier)) {
-                System.out.println("\t" + item);
+        Scanner choice = new Scanner(System.in);
+        
+        System.out.println("\n========================   Inventory   ========================");
+
+        while (true) {
+            System.out.printf("%-8s %-9s     %s%n", "choice", "price", "name");
+            for (int i = 0; i < items.length; i++) {
+                System.out.printf("%-8s $%-,9.2f     %s%n", "["+(i+1)+"]", items[i].getPrice(), items[i].getName());
+            }
+            System.out.println("===============================================================");
+            listShopOptions();
+            System.out.print("Command: ");
+            String input = choice.nextLine();
+            
+            if(input.equals("main")){
+                return;
             }
         }
 
@@ -85,13 +117,9 @@ public class SEArcA3 {
 
             System.out.println("\n**********************************");
             System.out.println("What would you like to do today?");
-            System.out.println("1. View Purchase History");
-            System.out.println("2. Browse inventory");
-            System.out.println("\t2b. View only books");
-            System.out.println("\t2e. View only electronics");
-            System.out.println("\t2h. View only household items");
-            System.out.println("\t2t. View only toys");
-            System.out.println("3. Logout");
+            System.out.println("[1] View Purchase History");
+            System.out.println("[2] Shop");
+            System.out.println("[3] Logout");
             System.out.println("**********************************");
             System.out.print("Select your choice: ");
 
@@ -100,19 +128,7 @@ public class SEArcA3 {
                     System.out.println("Purchase history choice needs to go here.");
                     break;
                 case "2":
-                    viewItems(null);
-                    break;
-                case "2b":
-                    viewItems(BookItem.class);
-                    break;
-                case "2e":
-                    viewItems(ElectronicItem.class);
-                    break;
-                case "2h":
-                    viewItems(HouseholdItem.class);
-                    break;
-                case "2t":
-                    viewItems(ToyItem.class);
+                    enterShop();
                     break;
                 case "3":
                     System.out.println("You have successfully logged out!");
