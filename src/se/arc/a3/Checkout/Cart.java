@@ -23,10 +23,68 @@
  */
 package se.arc.a3.Checkout;
 
+import se.arc.a3.User.User;
+import se.arc.a3.Checkout.Purchase;
+import se.arc.a3.Checkout.CartEntry;
+import se.arc.a3.Shop.Item;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
- * @author Eli
+ * @author Eli and Hunter
  */
 public class Cart {
-    
+
+    private List <CartEntry> cartEntries
+
+    public double getPriceTotal() {
+
+        double cartEntryPrice = 0;
+
+        for (CartEntry currentEntry: cartEntries) {
+            cartEntryPrice = cartEntryPrice + (currentEntry.getPrice() * currentEntry.getQuantity())
+        }
+
+        return cartEntryPrice;
+    }
+
+    public addCartEntry(Item item, int quantity) {
+
+        if (item != null && quantity > 0) {
+            for (CartEntry entry: cartEntries) {
+                if (entry.getItem() == item) {
+                    entry.setQuantity(entry.getQuantity() + quantity);
+                    return;
+                }
+            }
+
+            cartEntries.add(new CartEntry(item, quantity));
+        }
+    }
+
+    public removeCartEntry(Item item, int quantity) {
+
+        for (int i = 0; i < cartEntries.length(); i++) {
+            if (cartEntries[i].getItem() == item) {
+                cartEntries[i].setQuantity(cartEntries[i].getQuantity() - quantity);
+
+                if (cartEntries[i].getQuantity <= 0) {
+                    cartEntries.remove(i);
+                }
+
+                return;
+            }
+        }
+    }
+
+    public Purchase purchase(User customer, string address) {
+
+        CartEntry[] temp = new CartEntry[cartEntries.size()];
+        temp = cartEntries.toArray(temp);
+
+        return purchase = new Purchase(customer, address, temp);
+    }
+
 }
