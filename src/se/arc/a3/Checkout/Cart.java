@@ -37,23 +37,25 @@ import java.util.List;
  */
 public class Cart {
 
-    private List <CartEntry> cartEntries
+    private final List<CartEntry> cartEntries;
+
+    public Cart() {
+        cartEntries = new ArrayList<>();
+    }
 
     public double getPriceTotal() {
 
         double cartEntryPrice = 0;
 
-        for (CartEntry currentEntry: cartEntries) {
-            cartEntryPrice = cartEntryPrice + (currentEntry.getPrice() * currentEntry.getQuantity())
-        }
+        cartEntryPrice = cartEntries.stream().map((currentEntry) -> currentEntry.getPrice()).reduce(cartEntryPrice, (accumulator, _item) -> accumulator + _item);
 
         return cartEntryPrice;
     }
 
-    public addCartEntry(Item item, int quantity) {
+    public void addCartEntry(Item item, int quantity) {
 
         if (item != null && quantity > 0) {
-            for (CartEntry entry: cartEntries) {
+            for (CartEntry entry : cartEntries) {
                 if (entry.getItem() == item) {
                     entry.setQuantity(entry.getQuantity() + quantity);
                     return;
@@ -64,13 +66,13 @@ public class Cart {
         }
     }
 
-    public removeCartEntry(Item item, int quantity) {
+    public void removeCartEntry(Item item, int quantity) {
 
-        for (int i = 0; i < cartEntries.length(); i++) {
-            if (cartEntries[i].getItem() == item) {
-                cartEntries[i].setQuantity(cartEntries[i].getQuantity() - quantity);
+        for (int i = 0; i < cartEntries.size(); i++) {
+            if (cartEntries.get(i).getItem() == item) {
+                cartEntries.get(i).setQuantity(cartEntries.get(i).getQuantity() - quantity);
 
-                if (cartEntries[i].getQuantity <= 0) {
+                if (cartEntries.get(i).getQuantity() <= 0) {
                     cartEntries.remove(i);
                 }
 
@@ -79,12 +81,18 @@ public class Cart {
         }
     }
 
-    public Purchase purchase(User customer, string address) {
-
+    public CartEntry[] getEntries() {
         CartEntry[] temp = new CartEntry[cartEntries.size()];
         temp = cartEntries.toArray(temp);
+        return temp;
+    }
 
-        return purchase = new Purchase(customer, address, temp);
+    public Purchase purchase(User customer, String address) {
+
+        Purchase purchase = new Purchase(customer, address, getEntries());
+        cartEntries.clear();
+        
+        return purchase;
     }
 
 }

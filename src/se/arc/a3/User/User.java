@@ -55,6 +55,10 @@ public class User {
         return name;
     }
     
+    public Cart getCart() {
+        return cart;
+    }
+    
     @Override
     public String toString() {
        return "Id: " + id + "; Name: " + name + ";";

@@ -46,7 +46,7 @@ public class BookItem extends Item {
     
     @Override
     public String toString(){
-        return String.format("ISBN: %s;%s By: %s; $%,.2f", isbn, title, author, getPrice());
+        return String.format("ISBN: %s; %s By: %s; $%,.2f; Published by: %s;", isbn, title, author, getPrice(), publisher);
     }
     
 }
