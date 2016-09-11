@@ -31,8 +31,22 @@ import se.arc.a3.Shop.Item;
  */
 public class BookItem extends Item {
     
-    public BookItem(String name, double price, String productId) {
+    private String isbn;
+    private String title;
+    private String author;
+    private String publisher;
+    
+    public BookItem(String name, double price, String productId, String isbn, String title, String author, String publisher) {
         super(name, price, productId);
+        this.isbn = isbn;
+        this.author = author;
+        this.title = title;
+        this.publisher = publisher;
+    }
+    
+    @Override
+    public String toString(){
+        return String.format("ISBN: %s;%s By: %s; $%,.2f", isbn, title, author, getPrice());
     }
     
 }

@@ -74,11 +74,11 @@ public class Database {
                 
                 switch(curType){
                     case "Books":
-                        items.add(new BookItem(vars[0].trim(), parseInt(vars[2].trim()), vars[1].trim()));
+                        items.add(new BookItem(vars[0].trim(), parseInt(vars[2].trim()), vars[1].trim(), vars[4].trim(), vars[0].trim(), vars[3].trim(),  vars[5].trim()));
                         break;
                         
                     case "Toys":
-                        items.add(new ToyItem(vars[0].trim(), parseInt(vars[2].trim()), vars[1].trim()));
+                        items.add(new ToyItem(vars[0].trim(), parseInt(vars[2].trim()), vars[1].trim(), vars[3].trim(), vars[4].trim()));
                         break;
                         
                     case "Household":

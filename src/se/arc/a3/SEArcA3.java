@@ -30,6 +30,7 @@ import se.arc.a3.Shop.Item;
 import se.arc.a3.Shop.ItemCategories.*;
 import se.arc.a3.Storage.Database;
 import se.arc.a3.User.User;
+import static java.lang.Integer.parseInt;
 
 /**
  *
@@ -61,47 +62,75 @@ public class SEArcA3 {
         }
     }
 
-    public static void listShopOptions(){
+    public static void listShopOptions() {
         System.out.println("Options:");
-        
+
         System.out.println("\tadd <choice> [<quantity>]");
-        System.out.println("\t\tex: 'add 3 10', which adds item 3, 10 times to cart");
-        
+        System.out.println("\t\tex: 'add 3 10', which adds item 3, 10 times to cart\n");
+
         System.out.println("\trm  <choice> [<quantity>]");
         System.out.println("\t\tex: 'rm 3 10', which removes item 3, 10 times from cart");
-        System.out.println("\t\tex: 'rm 2', removes all instances of item 2");
-        
+        System.out.println("\t\tex: 'rm 2', removes all instances of item 2\n");
+
         System.out.println("\tcheckout  <creditcard number> <shipping adress>");
         System.out.println("\t\tDescription");
         System.out.println("\t\t\tTake what you have added to your cart");
         System.out.println("\t\t\tand build a purchase associated with your user.");
-        System.out.println("\t\tex: 'checkout 1121212423451125 2152 Bridlewood Cove'");
-        
+        System.out.println("\t\tex: 'checkout 1121212423451125 2152 Bridlewood Cove'\n");
+
+        System.out.println("\tview <choice>");
+        System.out.println("\t\tDescription");
+        System.out.println("\t\t\tGives a description about the item");
+        System.out.println("\t\tex 'view 9', which will print out information about 9\n");
+
         System.out.println("\tmain");
         System.out.println("\t\tDescription");
         System.out.println("\t\t\tTakes you back to main menu");
     }
-    
+
     public static void enterShop() {
 
         Item[] items = Inventory.getInstance().getItems();
 
         Scanner choice = new Scanner(System.in);
-        
+
         System.out.println("\n========================   Inventory   ========================");
 
         while (true) {
-            System.out.printf("%-8s %-9s     %s%n", "choice", "price", "name");
+            System.out.printf("%-8s %-9s      %s%n", "choice", "price", "name");
             for (int i = 0; i < items.length; i++) {
-                System.out.printf("%-8s $%-,9.2f     %s%n", "["+(i+1)+"]", items[i].getPrice(), items[i].getName());
+                System.out.printf("%-8s $%-,9.2f     %s%n", "[" + (i + 1) + "]", items[i].getPrice(), items[i].getName());
             }
             System.out.println("===============================================================");
-            listShopOptions();
-            System.out.print("Command: ");
-            String input = choice.nextLine();
-            
-            if(input.equals("main")){
-                return;
+
+            while (true) {
+
+                System.out.print("Command (type help to view commands): ");
+                String input = choice.nextLine();
+
+                if (input.equals("help")) {
+                    listShopOptions();
+                }
+
+                if (input.equals("main")) {
+                    return;
+                }
+
+                if (input.length() >= 5 && input.substring(0, 5).equals("view ")) {
+                    try {
+                        
+                        int itemId = -1;
+                        
+                        try {
+                            itemId = parseInt(input.substring(5, input.length()));
+                        } finally {
+                            System.out.println(items[itemId - 1]);
+                        }
+                        
+                    } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Couldn't find item!");
+                    }
+                }
             }
         }
 

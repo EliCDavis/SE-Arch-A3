@@ -31,8 +31,18 @@ import se.arc.a3.Shop.Item;
  */
 public class ToyItem extends Item {
     
-    public ToyItem(String name, double price, String productId) {
+    String brand;
+    String gender;
+    
+    public ToyItem(String name, double price, String productId, String brand, String gender) {
         super(name, price, productId);
+        this.brand = brand;
+        this.gender = gender;
+    }
+    
+    @Override
+    public String toString(){
+        return String.format("Toy: %s; For %ss by: %s; $%,.2f", getName(), this.gender, this.brand, getPrice());
     }
     
 }
