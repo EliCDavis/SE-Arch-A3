@@ -338,10 +338,10 @@ public class SEArcA3 {
         for(Purchase purchase : purchaseHistory){
             
             System.out.printf("Purchase (%d entries; $%,.2f):%n", purchase.getItems().length, purchase.getPrice());
-            System.out.printf("\t%-9s %-9s $%-9s%n", "Item", "Quantity", "Total Price");
+            System.out.printf("\t%-9s %-9s %-9s%n", "Item", "Quantity", "Total Price");
             
             for(CartEntry entry : purchase.getItems()){
-                System.out.printf("\t%-9s %-9d %-,9.2f%n", entry.getItem().getName(), entry.getQuantity(), entry.getPrice());
+                System.out.printf("\t%-9s %-9d $%-,9.2f%n", entry.getItem().getName(), entry.getQuantity(), entry.getPrice());
             }
             
         }

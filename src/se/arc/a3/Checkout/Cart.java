@@ -24,9 +24,9 @@
 package se.arc.a3.Checkout;
 
 import se.arc.a3.User.User;
-import se.arc.a3.Checkout.Purchase;
-import se.arc.a3.Checkout.CartEntry;
 import se.arc.a3.Shop.Item;
+import se.arc.a3.Storage.Database;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +90,9 @@ public class Cart {
 
     public Purchase purchase(User customer, String address) {
         Purchase purchase = new Purchase(customer, address, getEntries());
+        customer.addPurchase(purchase);
         cartEntries.clear();
+        Database.addPurchase(purchase);
         
         return purchase;
     }

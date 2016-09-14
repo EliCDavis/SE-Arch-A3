@@ -32,7 +32,7 @@ public class User {
 
     private final String name;
     private final String id;
-    private int creditCardNumber;
+    private String creditCardNumber;
     private final Cart cart;
     private final List<Purchase> purchases;
 
@@ -56,7 +56,7 @@ public class User {
         this.purchases.add(newPurchase);
     }
 
-    public int getCreditCardNumber() {
+    public String getCreditCardNumber() {
         return creditCardNumber;
     }
 

@@ -23,14 +23,17 @@
  */
 package se.arc.a3.Storage;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import se.arc.a3.Checkout.Cart;
-import se.arc.a3.Checkout.Purchase;
+import se.arc.a3.Checkout.*;
 import se.arc.a3.Shop.Inventory;
 import se.arc.a3.Shop.Item;
 import se.arc.a3.User.User;
@@ -43,20 +46,26 @@ import se.arc.a3.Shop.ItemCategories.*;
  */
 public class Database {
 
-    private static String[][] getRawPurchaseData() {
-        File file = new File("./src/se/arc/a3/Storage/db_purchase.txt");
+    public static void addPurchase(Purchase purchase) {
+        Writer output;
         try {
-            Scanner s = new Scanner(file);
-            List<String[]> purchases = new ArrayList<>();
-
-            while (s.hasNext()) {
-                purchases.add(s.nextLine().split("-"));
+            
+            String entry = purchase.getUser().getUsername() + " - ";
+            for(CartEntry cartEntry: purchase.getItems()){
+                for(int i = 0; i < cartEntry.getQuantity(); i ++) {
+                    entry += cartEntry.getItem().getId() + " ";
+                }
             }
-
-            return purchases.toArray(new String[purchases.size()][]);
-        } catch (FileNotFoundException e) {
-            return null;
+            entry += "- "+purchase.getAddress();
+            entry += "- "+purchase.getCreditCardNumber();
+            
+            output = new BufferedWriter(new FileWriter("./src/se/arc/a3/Storage/db_purchase.txt", true));
+            output.append("\n"+entry);
+            output.close();
+        } catch (IOException e) {
+            System.out.println("Unable to save purchase!");
         }
+
     }
 
     /**
@@ -75,12 +84,6 @@ public class Database {
         String[][] purchases = getRawPurchaseData();
         Item[] items = Inventory.getInstance().getItems();
 
-        for (String[] purchase : purchases) {
-            for (String arg : purchase) {
-//                System.out.println(arg);
-            }
-        }
-
         while (s.hasNext()) {
 
             // Build the user object
@@ -98,8 +101,8 @@ public class Database {
                     String[] itemIds = purchase[1].trim().split(" ");
                     Cart cart = new Cart();
                     for (String itemId : itemIds) {
-                        for(Item item : items){
-                            if(item.getId().equals(itemId)){
+                        for (Item item : items) {
+                            if (item.getId().equals(itemId)) {
                                 cart.addCartEntry(item, 1);
                             }
                         }
@@ -170,6 +173,22 @@ public class Database {
 
         return null;
 
+    }
+
+    private static String[][] getRawPurchaseData() {
+        File file = new File("./src/se/arc/a3/Storage/db_purchase.txt");
+        try {
+            Scanner s = new Scanner(file);
+            List<String[]> purchases = new ArrayList<>();
+
+            while (s.hasNext()) {
+                purchases.add(s.nextLine().split("-"));
+            }
+
+            return purchases.toArray(new String[purchases.size()][]);
+        } catch (FileNotFoundException e) {
+            return null;
+        }
     }
 
     /**

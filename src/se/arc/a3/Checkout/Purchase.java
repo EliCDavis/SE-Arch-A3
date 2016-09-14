@@ -34,11 +34,11 @@ public class Purchase {
     private final String address;
     private final CartEntry[] items;
     private final User user;
-    private final int creditCardNumber;
+    private final String creditCardNumber;
     
     public Purchase(User user, String address, String creditcardNumber, CartEntry[] cart){
         this.user = user;
-        this.creditCardNumber = 0;
+        this.creditCardNumber = creditcardNumber;
         this.items = cart;
         this.address = address;
     }
@@ -89,7 +89,7 @@ public class Purchase {
     /**
      * @return the creditCardNumber
      */
-    public int getCreditCardNumber() {
+    public String getCreditCardNumber() {
         return creditCardNumber;
     }
     
