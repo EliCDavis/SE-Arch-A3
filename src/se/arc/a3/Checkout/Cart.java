@@ -88,8 +88,8 @@ public class Cart {
         return temp;
     }
 
-    public Purchase purchase(User customer, String address) {
-        Purchase purchase = new Purchase(customer, address, getEntries());
+    public Purchase purchase(User customer, String address, String card) {
+        Purchase purchase = new Purchase(customer, address, card, getEntries());
         customer.addPurchase(purchase);
         cartEntries.clear();
         Database.addPurchase(purchase);

@@ -314,7 +314,7 @@ public class SEArcA3 {
                                 input = choice.nextLine();
 
                                 if(input.charAt(0) == 'y'){
-                                    userloggedIn.getCart().purchase(userloggedIn, address);
+                                    userloggedIn.getCart().purchase(userloggedIn, address, creditcardNumber);
                                     System.out.println("\n===========================================================================");
                                     System.out.println("Thank you, " + userloggedIn.getName() + "! Your purchase is being processed.");
                                     System.out.println("===========================================================================\n");
