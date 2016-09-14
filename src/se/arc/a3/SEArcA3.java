@@ -331,6 +331,23 @@ public class SEArcA3 {
         }
     }
 
+    private static void listPurchaseHistory(){
+        
+        Purchase[] purchaseHistory = userloggedIn.viewPastPurchases();
+        
+        for(Purchase purchase : purchaseHistory){
+            
+            System.out.printf("Purchase (%d entries; $%,.2f):%n", purchase.getItems().length, purchase.getPrice());
+            System.out.printf("\t%-9s %-9s $%-9s%n", "Item", "Quantity", "Total Price");
+            
+            for(CartEntry entry : purchase.getItems()){
+                System.out.printf("\t%-9s %-9d %-,9.2f%n", entry.getItem().getName(), entry.getQuantity(), entry.getPrice());
+            }
+            
+        }
+        
+    }
+    
     public static void menu(String name) {
 
         System.out.println("Welcome, " + name + "!");
@@ -349,7 +366,7 @@ public class SEArcA3 {
 
             switch (choice.nextLine()) {
                 case "1":
-                    System.out.println("Purchase history choice needs to go here.");
+                    listPurchaseHistory();
                     break;
                 case "2":
                     enterShop();

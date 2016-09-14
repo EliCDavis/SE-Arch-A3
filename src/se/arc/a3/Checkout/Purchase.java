@@ -36,6 +36,13 @@ public class Purchase {
     private final User user;
     private final int creditCardNumber;
     
+    public Purchase(User user, String address, String creditcardNumber, CartEntry[] cart){
+        this.user = user;
+        this.creditCardNumber = 0;
+        this.items = cart;
+        this.address = address;
+    }
+    
     public Purchase(User user, String address, CartEntry[] cart){
         this.user = user;
         this.creditCardNumber = user.getCreditCardNumber();

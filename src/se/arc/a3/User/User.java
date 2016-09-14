@@ -22,46 +22,59 @@
  * THE SOFTWARE.
  */
 package se.arc.a3.User;
+
+import java.util.ArrayList;
+import java.util.List;
 import se.arc.a3.Checkout.Cart;
 import se.arc.a3.Checkout.Purchase;
-        
+
 public class User {
-    
+
     private final String name;
     private final String id;
-    private int  creditCardNumber;
+    private int creditCardNumber;
     private final Cart cart;
-    private final Purchase[] purchase;
-    
-    public User(String name, String id){
+    private final List<Purchase> purchases;
+
+    public User(String name, String id) {
         this.name = name;
         this.id = id;
         this.cart = new Cart();
-        this.purchase = null;
+        this.purchases = new ArrayList<>();
     }
-    
+
     public Purchase[] viewPastPurchases() {
-        return purchase;
+        return purchases.toArray(new Purchase[purchases.size()]);
     }
-    
+
+    public void addPurchase(Purchase newPurchase) {
+
+        if (newPurchase == null) {
+            return;
+        }
+
+        this.purchases.add(newPurchase);
+    }
+
     public int getCreditCardNumber() {
         return creditCardNumber;
     }
+
     public String getUsername() {
         return id;
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public Cart getCart() {
         return cart;
     }
-    
+
     @Override
     public String toString() {
-       return "Id: " + id + "; Name: " + name + ";";
+        return "Id: " + id + "; Name: " + name + ";";
     }
-    
+
 }

@@ -13,15 +13,15 @@ Marbles - T4 - 2 - brand - boy
 Nerf Gun - T5 - 15 - brand - boy
 
 Household
-Couch - H1 - 200
-Chair - H2 - 150
-Loveseat - H3 - 125
-Hammock - H4 - 50
-Table - H5 - 60
+Couch - H1 - 200 - seasonal - roomforuse - category
+Chair - H2 - 150 - seasonal - roomforuse - category
+Loveseat - H3 - 125 - seasonal - roomforuse - category
+Hammock - H4 - 50 - seasonal - roomforuse - category
+Table - H5 - 60 - seasonal - roomforuse - category
 
 Electronics
-Laptop - E1 - 1000
-Watch - E2 - 250
-Calculator - E3 - 100
-Keyboard - E4 - 25
-Mouse - E5 - 15
+Laptop - E1 - 1000 - catagory - manufactorer
+Watch - E2 - 250 - catagory - manufactorer
+Calculator - E3 - 100 - catagory - manufactorer
+Keyboard - E4 - 25 - catagory - manufactorer
+Mouse - E5 - 15 - catagory - manufactorer

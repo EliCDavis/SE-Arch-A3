@@ -43,12 +43,14 @@ public class Cart {
         cartEntries = new ArrayList<>();
     }
 
+    /**
+     * Adds up all the Cart Entries prices and returns the total
+     * 
+     * @return The price of purchasing the cart 
+     */
     public double getPriceTotal() {
-
         double cartEntryPrice = 0;
-        cartEntryPrice = cartEntries.stream().map((currentEntry) -> currentEntry.getPrice()).reduce(cartEntryPrice, (accumulator, _item) -> accumulator + _item);
-
-        return cartEntryPrice;
+        return cartEntries.stream().map((currentEntry) -> currentEntry.getPrice()).reduce(cartEntryPrice, (accumulator, _item) -> accumulator + _item);
     }
 
     public void addCartEntry(Item item, int quantity) {

@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2016 Eli.
+ * Copyright 2016 Josh & Eli.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,25 +29,88 @@ import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import se.arc.a3.Checkout.Cart;
+import se.arc.a3.Checkout.Purchase;
+import se.arc.a3.Shop.Inventory;
 import se.arc.a3.Shop.Item;
 import se.arc.a3.User.User;
 import se.arc.a3.Shop.ItemCategories.*;
 
 /**
+ * "Static" class for interfacing with our "database".
  *
- * @author Josh
+ * @author Josh & Eli
  */
 public class Database {
 
+    private static String[][] getRawPurchaseData() {
+        File file = new File("./src/se/arc/a3/Storage/db_purchase.txt");
+        try {
+            Scanner s = new Scanner(file);
+            List<String[]> purchases = new ArrayList<>();
+
+            while (s.hasNext()) {
+                purchases.add(s.nextLine().split("-"));
+            }
+
+            return purchases.toArray(new String[purchases.size()][]);
+        } catch (FileNotFoundException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Looks at our dedicated file for storing Users and then looks at inventory
+     * and purchases to correctly build everything we need to know about the
+     * user.
+     *
+     * @return All users found in the database
+     * @throws FileNotFoundException
+     */
     public static User[] getUsers() throws FileNotFoundException {
 
         File file = new File("./src/se/arc/a3/Storage/db_users.txt");
         Scanner s = new Scanner(file);
         List<User> users = new ArrayList<>();
+        String[][] purchases = getRawPurchaseData();
+        Item[] items = Inventory.getInstance().getItems();
+
+        for (String[] purchase : purchases) {
+            for (String arg : purchase) {
+//                System.out.println(arg);
+            }
+        }
 
         while (s.hasNext()) {
+
+            // Build the user object
             String[] vars = s.nextLine().split("-");
-            users.add(new User(vars[1].trim(), vars[0].trim()));
+            User user = new User(vars[1].trim(), vars[0].trim());
+            users.add(user);
+
+            // Go through all the purchases
+            for (String[] purchase : purchases) {
+
+                // If this purchase belongs to this user
+                if (purchase[0].trim().equals(user.getUsername())) {
+
+                    // Build the cart
+                    String[] itemIds = purchase[1].trim().split(" ");
+                    Cart cart = new Cart();
+                    for (String itemId : itemIds) {
+                        for(Item item : items){
+                            if(item.getId().equals(itemId)){
+                                cart.addCartEntry(item, 1);
+                            }
+                        }
+                    }
+
+                    // Add the purchase to the User
+                    user.addPurchase(new Purchase(user, purchase[2], purchase[3], cart.getEntries()));
+                }
+
+            }
+
         }
 
         User[] temp = new User[users.size()];
@@ -55,6 +118,12 @@ public class Database {
         return temp;
     }
 
+    /**
+     * Looks at our dedicated file for storing items and begins constructing
+     * them with the appropriate subclass.
+     *
+     * @return All Items found in our database
+     */
     public static Item[] getItems() {
 
         File file = new File("./src/se/arc/a3/Storage/db_inventory.txt");
@@ -65,42 +134,42 @@ public class Database {
             String curType = "";
             while (s.hasNext()) {
                 String[] vars = s.nextLine().split("-");
-                
+
                 // We're assuming it's a category change
-                if(vars.length == 1){
+                if (vars.length == 1) {
                     curType = vars[0];
                     continue;
                 }
-                
-                switch(curType){
+
+                switch (curType) {
                     case "Books":
-                        items.add(new BookItem(vars[0].trim(), parseInt(vars[2].trim()), vars[1].trim(), vars[4].trim(), vars[0].trim(), vars[3].trim(),  vars[5].trim()));
+                        items.add(new BookItem(vars[0].trim(), parseInt(vars[2].trim()), vars[1].trim(), vars[4].trim(), vars[0].trim(), vars[3].trim(), vars[5].trim()));
                         break;
-                        
+
                     case "Toys":
                         items.add(new ToyItem(vars[0].trim(), parseInt(vars[2].trim()), vars[1].trim(), vars[3].trim(), vars[4].trim()));
                         break;
-                        
+
                     case "Household":
-                        items.add(new HouseholdItem(vars[0].trim(), parseInt(vars[2].trim()), vars[1].trim()));
+                        items.add(new HouseholdItem(vars[0].trim(), parseInt(vars[2].trim()), vars[1].trim(), vars[3].trim(), vars[4].trim(), vars[5].trim()));
                         break;
-                        
+
                     case "Electronics":
-                        items.add(new ElectronicItem(vars[0].trim(), parseInt(vars[2].trim()), vars[1].trim()));
+                        items.add(new ElectronicItem(vars[0].trim(), parseInt(vars[2].trim()), vars[1].trim(), vars[3].trim(), vars[4].trim()));
                         break;
                 }
-                
+
             }
 
             Item[] temp = new Item[items.size()];
             temp = items.toArray(temp);
             return temp;
-        } catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("Could not connect to Inventory Database!");
         }
 
         return null;
-        
+
     }
 
     /**
@@ -108,4 +177,5 @@ public class Database {
      */
     private Database() {
     }
+
 }

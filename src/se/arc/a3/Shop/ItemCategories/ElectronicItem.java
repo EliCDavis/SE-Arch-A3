@@ -31,8 +31,8 @@ import se.arc.a3.Shop.Item;
  */
 public class ElectronicItem extends Item{
     
-    private String category;
-    private String manufacturer;
+    private final String category;
+    private final String manufacturer;
     
     public ElectronicItem(String name, double price, String productId, String category, String manufacturer) {
         super(name, price, productId);
@@ -43,4 +43,5 @@ public class ElectronicItem extends Item{
     @Override
     public String toString(){
         return String.format("Electronic Item: %s; Category: %s; Manufacturer: %s; $%,.2f", getName(), this.category, this.manufacturer, getPrice());
+    }
 }
