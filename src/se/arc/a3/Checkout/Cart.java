@@ -46,7 +46,6 @@ public class Cart {
     public double getPriceTotal() {
 
         double cartEntryPrice = 0;
-
         cartEntryPrice = cartEntries.stream().map((currentEntry) -> currentEntry.getPrice()).reduce(cartEntryPrice, (accumulator, _item) -> accumulator + _item);
 
         return cartEntryPrice;
@@ -88,7 +87,6 @@ public class Cart {
     }
 
     public Purchase purchase(User customer, String address) {
-
         Purchase purchase = new Purchase(customer, address, getEntries());
         cartEntries.clear();
         

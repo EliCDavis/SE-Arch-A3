@@ -32,6 +32,7 @@ import se.arc.a3.Storage.Database;
 import se.arc.a3.User.User;
 import se.arc.a3.Checkout.*;
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
 
 /**
  *
@@ -66,7 +67,10 @@ public class SEArcA3 {
         }
     }
 
-    public static void listShopOptions() {
+    /**
+     * Print out a list of commands the user can take while in the shop menu
+     */
+    private static void listShopOptions() {
         System.out.println("Options:");
 
         System.out.println("\tadd <choice> [<quantity>]");
@@ -76,11 +80,10 @@ public class SEArcA3 {
         System.out.println("\t\tex: 'rm 3 10', which removes item 3, 10 times from cart");
         System.out.println("\t\tex: 'rm 2', removes all instances of item 2\n");
 
-        System.out.println("\tcheckout  <creditcard number> <shipping adress>");
+        System.out.println("\tcheckout");
         System.out.println("\t\tDescription");
         System.out.println("\t\t\tTake what you have added to your cart");
         System.out.println("\t\t\tand build a purchase associated with your user.");
-        System.out.println("\t\tex: 'checkout 1121-2124-2345-1125 2152 Bridlewood Cove'\n");
 
         System.out.println("\tview <choice>");
         System.out.println("\t\tDescription");
@@ -92,7 +95,7 @@ public class SEArcA3 {
         System.out.println("\t\t\tTakes you back to main menu");
     }
 
-    public static Item attemptGrabbingItem(String userInput, Item[] inventory) {
+    private static Item attemptGrabbingItem(String userInput, Item[] inventory) {
         try {
 
             int itemId = -1;
@@ -113,21 +116,40 @@ public class SEArcA3 {
 
     }
 
-    public static void listItems(Item[] items) {
-        System.out.printf("%-8s %-9s      %s%n", "choice", "price", "name");
+    private static String getItemName(Item item){
+        return item.getClass().getSimpleName().substring(0, item.getClass().getSimpleName().length()-4);
+    }
+    
+    private static void listItems(Item[] items) {
+        System.out.printf("%-8s %-9s      %-13s%s%n", "choice", "price", "category", "name");
         for (int i = 0; i < items.length; i++) {
-            System.out.printf("%-8s $%-,9.2f      %s%n", "[" + (i + 1) + "]", items[i].getPrice(), items[i].getName());
+            System.out.printf("%-8s $%-,9.2f     %-13s%s%n", "[" + (i + 1) + "]", items[i].getPrice(), getItemName(items[i]), items[i].getName());
         }
     }
 
-    public static void listItems(CartEntry[] entries) {
-        System.out.printf("%-8s %-9s    %-10s      %s%n", "choice", "price", "quantity", "name");
+    private static void listItems(CartEntry[] entries) {
+        System.out.printf("%-8s %-9s    %-10s      %-13s%s%n", "choice", "price", "quantity", "category", "name");
         for (int i = 0; i < entries.length; i++) {
-            System.out.printf("%-8s $%-,9.2f   %-10d      %s%n", "[" + (i + 1) + "]", entries[i].getPrice(), entries[i].getQuantity(), entries[i].getItem().getName());
+            System.out.printf("%-8s $%-,9.2f   %-10d      %-13s%s%n", "[" + (i + 1) + "]", entries[i].getPrice(), entries[i].getQuantity(),getItemName(entries[i].getItem()), entries[i].getItem().getName());
         }
     }
 
-    public static void enterShop() {
+    /**
+     * 
+     * @param command
+     * @param input
+     * @return the arguements of the command of an empty array.  Null if it's not the command
+     */
+    private static String[] getArguments(String command, String input){
+        
+        if(input.length() >= command.length() + 1 && input.substring(0, command.length()).equals(command)){
+            return input.substring(command.length() + 1, input.length()).split(" ");
+        }
+        
+        return null;
+    }
+    
+    private static void enterShop() {
 
         Item[] items = Inventory.getInstance().getItems();
 
@@ -135,7 +157,6 @@ public class SEArcA3 {
 
         while (true) {
             System.out.println("\n========================   Inventory   ========================");
-
             listItems(items);
 
             System.out.println("\n========================     Cart      ========================");
@@ -143,9 +164,7 @@ public class SEArcA3 {
             if (userloggedIn.getCart().getEntries().length == 0) {
                 System.out.println("Cart Is Empty!");
             } else {
-
                 listItems(userloggedIn.getCart().getEntries());
-
                 System.out.printf("%nTotal: $%,.2f%nType checkout <creditcard number> <shipping adress> to complete transation%n", userloggedIn.getCart().getPriceTotal());
             }
 
@@ -167,9 +186,9 @@ public class SEArcA3 {
                 }
 
                 // View Command
-                if (input.length() >= 5 && input.substring(0, 5).equals("view ")) {
+                if (getArguments("view", input) != null) {
 
-                    Item itemtoView = attemptGrabbingItem(input.substring(5, input.length()), items);
+                    Item itemtoView = attemptGrabbingItem(getArguments("view", input)[0], items);
 
                     if (itemtoView != null) {
                         System.out.println(itemtoView);
@@ -180,10 +199,9 @@ public class SEArcA3 {
                 }
 
                 // Add command
-                if (input.length() >= 4 && input.substring(0, 4).equals("add ")) {
+                if (getArguments("add", input) != null) {
 
-                    String[] args = input.substring(4, input.length()).split(" ");
-
+                    String[] args = getArguments("add", input);
 
                     if (args.length == 0) {
                         System.out.println("You must choose an item choice!");
@@ -211,13 +229,12 @@ public class SEArcA3 {
                     }
 
                     continue;
-
                 }
 
                 // Remove commmand
-                if (input.length() >= 3 && input.substring(0, 3).equals("rm ")) {
+                if (getArguments("rm", input) != null) {
 
-                    String[] args = input.substring(3, input.length()).split(" ");
+                    String[] args = getArguments("rm", input);
 
                     if (args.length == 0) {
                         System.out.println("You must choose an item choice!");
@@ -261,6 +278,39 @@ public class SEArcA3 {
                     }
 
                 }
+                
+                // Begin Checkout process
+                if(input.equals("checkout")){
+                    
+                    String creditcardNumer = "";
+                    String address = "";
+                    
+                    while(true){
+                        
+                        if(creditcardNumer == "") {
+                            
+                            // get credit card number
+                            
+                        } else if (address == ""){
+                            
+                            // get address
+                            
+                        } else {
+                            System.out.printf("Card: %s; Shipping Address: %s%n", creditcardNumer, address);
+                            System.out.println("Confirm Purchase(y/n): ");
+                            input = choice.nextLine();
+                            
+                            if(input.charAt(0) == 'y'){
+                                userloggedIn.getCart().purchase(userloggedIn, address);
+                            } else if(input.charAt(0) == 'n') {
+                                
+                            }
+                        }
+                        
+                    }
+                    
+                }
+                
             }
         }
 
