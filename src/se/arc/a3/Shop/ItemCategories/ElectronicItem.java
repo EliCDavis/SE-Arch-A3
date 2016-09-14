@@ -27,12 +27,20 @@ import se.arc.a3.Shop.Item;
 
 /**
  *
- * @author Eli
+ * @author Eli & Hunter
  */
 public class ElectronicItem extends Item{
     
-    public ElectronicItem(String name, double price, String productId) {
+    private String category;
+    private String manufacturer;
+    
+    public ElectronicItem(String name, double price, String productId, String category, String manufacturer) {
         super(name, price, productId);
+        this.category = category;
+        this.manufacturer = manufacturer;
     }
     
+    @Override
+    public String toString(){
+        return String.format("Electronic Item: %s; Category: %s; Manufacturer: %s; $%,.2f", getName(), this.category, this.manufacturer, getPrice());
 }

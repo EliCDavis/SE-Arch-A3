@@ -27,12 +27,25 @@ import se.arc.a3.Shop.Item;
 
 /**
  *
- * @author Eli
+ * @author Eli & Hunter
  */
 public class HouseholdItem extends Item {
     
-    public HouseholdItem(String name, double price, String productId) {
+    String seasonal;
+    String roomForUse;
+    String category;
+    
+    public HouseholdItem(String name, double price, String productId, String seasonal, String roomForUse, String category) {
         super(name, price, productId);
+        this.seasonal = seasonal;
+        this.roomForUse = roomForUse;
+        this.category = category;
     }
+    
+    @Override
+    public String toString(){
+        return String.format("Household Item: %s; Category: %s; Season: %s; Use in: %s; $%,.2f", getName(), this.category, this.seasonal, this.roomForUse, getPrice());
+    }
+
     
 }
