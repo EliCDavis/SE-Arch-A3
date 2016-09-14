@@ -289,12 +289,12 @@ public class SEArcA3 {
                         while(true){
 
                             // Get the credit card number
-                            System.out.print("Please enter your credit card number in the following format -> [xxxx-xxxx-xxxx-xxxx]: ");
+                            System.out.print("Please enter your 10-Digit OSC Card Number: ");
                             Scanner s = new Scanner(System.in);
                             String creditcardNumber = s.nextLine();
 
-                            if(creditcardNumber.length() != 19) {
-                                System.out.println("Sorry, invalid credit card number.");
+                            if(creditcardNumber.length() != 10) {
+                                System.out.println("Sorry, OSC Card Number not valid.");
                                 break;
 
                             } 
