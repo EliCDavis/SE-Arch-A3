@@ -138,7 +138,7 @@ public class SEArcA3 {
      * 
      * @param command
      * @param input
-     * @return the arguements of the command of an empty array.  Null if it's not the command
+     * @return the arguments of the command of an empty array.  Null if it's not the command
      */
     private static String[] getArguments(String command, String input){
         
@@ -165,7 +165,7 @@ public class SEArcA3 {
                 System.out.println("Cart Is Empty!");
             } else {
                 listItems(userloggedIn.getCart().getEntries());
-                System.out.printf("%nTotal: $%,.2f%nType checkout <creditcard number> <shipping adress> to complete transation%n", userloggedIn.getCart().getPriceTotal());
+                System.out.printf("%nTotal: $%,.2f%nType checkout to complete transaction%n", userloggedIn.getCart().getPriceTotal());
             }
 
             System.out.println("===============================================================");
@@ -280,40 +280,55 @@ public class SEArcA3 {
                 }
                 
                 // Begin Checkout process
-                if(input.equals("checkout")){
-                    
-                    String creditcardNumer = "";
-                    String address = "";
-                    
-                    while(true){
-                        
-                        if(creditcardNumer == "") {
-                            
-                            // get credit card number
-                            
-                        } else if (address == ""){
-                            
-                            // get address
-                            
-                        } else {
-                            System.out.printf("Card: %s; Shipping Address: %s%n", creditcardNumer, address);
-                            System.out.println("Confirm Purchase(y/n): ");
-                            input = choice.nextLine();
-                            
-                            if(input.charAt(0) == 'y'){
-                                userloggedIn.getCart().purchase(userloggedIn, address);
-                            } else if(input.charAt(0) == 'n') {
-                                
+                if(input.contains("checkout")){
+                    if (userloggedIn.getCart().getEntries().length == 0) {
+                        System.out.println("\nERROR: You cannot checkout with an empty cart, " + userloggedIn.getName() + "!");
+                        return;
+                    } else {
+                                            
+                        while(true){
+
+                            // Get the credit card number
+                            System.out.print("Please enter your credit card number in the following format -> [xxxx-xxxx-xxxx-xxxx]: ");
+                            Scanner s = new Scanner(System.in);
+                            String creditcardNumber = s.nextLine();
+
+                            if(creditcardNumber.length() != 19) {
+                                System.out.println("Sorry, invalid credit card number.");
+                                break;
+
+                            } 
+
+                            // Get the address
+                            System.out.print("Please enter your address: ");
+                            String address = s.nextLine();
+
+                            // If no address is entered, break;
+                            if (address.equals("")){
+                                System.out.println("Sorry, invalid address.\n");
+                                break;
+
+                            } else {
+                                System.out.printf("CreditCard: %s || Shipping Address: %s || Total Price: %,.2f%n", creditcardNumber, address, userloggedIn.getCart().getPriceTotal());
+                                System.out.print("Confirm Purchase(y/n): ");
+                                input = choice.nextLine();
+
+                                if(input.charAt(0) == 'y'){
+                                    userloggedIn.getCart().purchase(userloggedIn, address);
+                                    System.out.println("\n===========================================================================");
+                                    System.out.println("Thank you, " + userloggedIn.getName() + "! Your purchase is being processed.");
+                                    System.out.println("===========================================================================\n");
+                                    return;
+                                } else if(input.charAt(0) == 'n') {
+                                    System.out.println("\n*** Returning to main menu *** ");
+                                    return;
+                                }
                             }
                         }
-                        
                     }
-                    
-                }
-                
+                }         
             }
         }
-
     }
 
     public static void menu(String name) {
