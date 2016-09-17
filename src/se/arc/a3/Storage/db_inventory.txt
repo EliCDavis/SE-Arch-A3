@@ -1,27 +1,27 @@
 Books
-To Kill A Mockingbird - B1 - 10 - Author - 1234848461548 - publisher
-The Great Gatsby - B2 - 4 - Author - 73943454548943 - publisher
-Lolita - B3 - 7 - Author -1387384914973 - publisher
-The Grapes of Wrath - B4 - 15 - Author - 78494856516487 - publisher
-The Catcher in The Rye - B5 - 2 - Author - 1212181964786 - publisher
+To Kill A Mockingbird - B1 - 10 - Harper Lee - 1234848461548 - Harper Lee
+The Great Gatsby - B2 - 4 - F. Scott Fitzgerald - 73943454548943 - Charles Scribner's Sons
+Lolita - B3 - 7 - Vladimir Nabokov - 1387384914973 - Olympia Press
+The Grapes of Wrath - B4 - 15 - John Steinbeck - 78494856516487 - The Viking Press James Lloyd
+The Catcher in The Rye - B5 - 2 - J.D. Salinger - 1212181964786 - Little, Brown and Company
 
 Toys
-Big Wheel - T1 - 20 - brand - boy
-Jacks - T2 - 5  - brand - girl
-Jump Rope - T3 - 10 - brand - girl
-Marbles - T4 - 2 - brand - boy
-Nerf Gun - T5 - 15 - brand - boy
+Big Wheel - T1 - 20 - The Original Big Wheel - boy
+Jacks - T2 - 5  - Schylling - boy
+Jump Rope - T3 - 10 - Barbie - girl
+Marbles - T4 - 2 - Marble Co. - girl
+Nerf Gun - T5 - 15 - Nerf - boy
 
 Household
-Couch - H1 - 200 - seasonal - roomforuse - category
-Chair - H2 - 150 - seasonal - roomforuse - category
-Loveseat - H3 - 125 - seasonal - roomforuse - category
-Hammock - H4 - 50 - seasonal - roomforuse - category
-Table - H5 - 60 - seasonal - roomforuse - category
+Couch - H1 - 200 - Summer - Living Room - Inside Furniture
+Chair - H2 - 150 - Summer - Living Room - Inside Furniture
+Loveseat - H3 - 125 - Fall - Guest Room - Inside Furniture
+Hammock - H4 - 50 - Spring - Patio - Outside Furniture
+Table - H5 - 60 - Winter - Kitchen - Inside Furniture
 
 Electronics
-Laptop - E1 - 1000 - catagory - manufactorer
-Watch - E2 - 250 - catagory - manufactorer
-Calculator - E3 - 100 - catagory - manufactorer
-Keyboard - E4 - 25 - catagory - manufactorer
-Mouse - E5 - 15 - catagory - manufactorer
+Laptop - E1 - 1000 - Personal - Dell
+Watch - E2 - 250 - Personal - Fitbit
+Calculator - E3 - 100 - School - Texas Instruments
+Keyboard - E4 - 25 - Accessories - Havitt
+Mouse - E5 - 15 - Accessories - Logitech
