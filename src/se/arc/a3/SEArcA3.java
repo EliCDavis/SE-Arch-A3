@@ -27,11 +27,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import se.arc.a3.Shop.Inventory;
 import se.arc.a3.Shop.Item;
-import se.arc.a3.Shop.ItemCategories.*;
 import se.arc.a3.Storage.Database;
 import se.arc.a3.User.User;
 import se.arc.a3.Checkout.*;
-import static java.lang.Integer.parseInt;
 import static java.lang.Integer.parseInt;
 
 /**
@@ -95,6 +93,15 @@ public class SEArcA3 {
         System.out.println("\t\t\tTakes you back to main menu");
     }
 
+    /**
+     * Helper function which given an array of items and a user input, try to 
+     * index the given array based on the input and handle any errors that it
+     * might throw.
+     * 
+     * @param userInput What the user has given us
+     * @param inventory The inventory of items we need to look in
+     * @return The item that the user input is referencing (null if bad indexing)
+     */
     private static Item attemptGrabbingItem(String userInput, Item[] inventory) {
         try {
 
@@ -115,11 +122,21 @@ public class SEArcA3 {
         }
 
     }
-
+    
+    /**
+     * Helper function which grabs the type of item we're looking at by looking
+     * at the class name
+     * @param item Item we'd like to know the name of
+     * @return The name of the item
+     */
     private static String getItemName(Item item){
         return item.getClass().getSimpleName().substring(0, item.getClass().getSimpleName().length()-4);
     }
     
+    /**
+     * Lists out all entries in a pretty format
+     * @param items Entries we'd like to see in console
+     */
     private static void listItems(Item[] items) {
         System.out.printf("%-8s %-9s      %-13s%s%n", "choice", "price", "category", "name");
         for (int i = 0; i < items.length; i++) {
@@ -127,6 +144,10 @@ public class SEArcA3 {
         }
     }
 
+    /**
+     * Lists out all entries in a pretty format
+     * @param entries Entries we'd like to see in console
+     */
     private static void listItems(CartEntry[] entries) {
         System.out.printf("%-8s %-9s    %-10s      %-13s%s%n", "choice", "price", "quantity", "category", "name");
         for (int i = 0; i < entries.length; i++) {
@@ -135,9 +156,12 @@ public class SEArcA3 {
     }
 
     /**
+     * Given a input and the command that we'd like to see from the input, we
+     * can see if the user even passed that command or what arguements are 
+     * associated with the command
      * 
-     * @param command
-     * @param input
+     * @param command The command we would like to see if exists in the input
+     * @param input The input that th user has given the program
      * @return the arguments of the command of an empty array.  Null if it's not the command
      */
     private static String[] getArguments(String command, String input){
@@ -149,6 +173,12 @@ public class SEArcA3 {
         return null;
     }
     
+    /**
+     * THE MEAT OF THE MENU THAT USERS ENCOUNTER IN THE PROGRAM
+     * 
+     * This method takes care of handling what ever commands the user gives
+     * it in a CLI format and executes the code associated with command
+     */
     private static void enterShop() {
 
         Item[] items = Inventory.getInstance().getItems();
@@ -331,6 +361,9 @@ public class SEArcA3 {
         }
     }
 
+    /**
+     * Prints out all purchases that the logged in user has made.
+     */
     private static void listPurchaseHistory(){
         
         Purchase[] purchaseHistory = userloggedIn.viewPastPurchases();
@@ -348,7 +381,12 @@ public class SEArcA3 {
         
     }
     
-    public static void menu(String name) {
+    /**
+     * Prints out the basic menus that the user will be presented upon login
+     * 
+     * @param name The name that the menu will address 
+     */
+    private static void menu(String name) {
 
         System.out.println("Welcome, " + name + "!");
 

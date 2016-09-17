@@ -24,13 +24,27 @@
 package se.arc.a3.Shop;
 
 /**
- *
+ * Represents a single item from the database.
+ * The item is created when the inventory is requested for the first time
+ * and is created from a text file serving as a database.
+ * 
  * @author Eli
  */
 public abstract class Item {
     
+    /**
+     * name of the item
+     */
     private final String name;
+    
+    /**
+     * The price of the item
+     */
     private final double price;
+    
+    /**
+     * The id of the item
+     */
     private final String id;
     
     public Item(String name, double price, String productId) {
@@ -38,15 +52,24 @@ public abstract class Item {
         this.price = price;
         this.id = productId;
     }
-            
+    
+    /**
+     * @return The name of the item
+     */
     public String getName() {
         return name;
     }
     
+    /**
+     * @return The price of the item
+     */
     public double getPrice() {
         return price;
     }
     
+    /**
+     * @return The id of the item
+     */
     public String getId(){
         return id;
     }

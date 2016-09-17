@@ -26,7 +26,11 @@ package se.arc.a3.Shop;
 import se.arc.a3.Storage.Database;
 
 /**
- *
+ * The inventory is a singleton which means that it isn't instantiated until
+ * requested.  Because of this behavior during some instances of the program
+ * we might never even need to load in the items from the database if the user
+ * just signs in and then signs out.  This ensures that resources are only loaded
+ * when they need too.
  * @author Eli
  */
 public class Inventory {
@@ -35,11 +39,17 @@ public class Inventory {
 
     private final Item[] items;
     
+    /**
+     * Made private so that only the Inventory class can instantiate itself
+     */
     private Inventory(){
         this.items = Database.getItems();
     }
     
-    
+    /**
+     * Creates an instance of the inventory if it doesn't already exist
+     * @return The inventory.
+     */
     public static Inventory getInstance(){
         
         if(instance == null){
@@ -49,6 +59,9 @@ public class Inventory {
         return instance;        
     }
     
+    /**
+     * @return All items found in the database
+     */
     public Item[] getItems(){
         return this.items;
     }

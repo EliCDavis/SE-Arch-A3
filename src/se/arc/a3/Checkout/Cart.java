@@ -32,11 +32,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Each user has a single cart that they can add and remove items and then purchase 
+ * when their satisfied
+ * 
  * @author Eli and Hunter
  */
 public class Cart {
 
+    /**
+     * List of cart entries that the cart contains that the user wants to purchase
+     */
     private final List<CartEntry> cartEntries;
 
     public Cart() {
@@ -53,6 +58,13 @@ public class Cart {
         return cartEntries.stream().map((currentEntry) -> currentEntry.getPrice()).reduce(cartEntryPrice, (accumulator, _item) -> accumulator + _item);
     }
 
+    /**
+     * If the item your adding already exists the quantity will be added to the
+     * existing quantity of said item entry
+     * 
+     * @param item The item you'd like to add to the cart
+     * @param quantity How many instances of the item you'd like to add
+     */
     public void addCartEntry(Item item, int quantity) {
 
         if (item != null && quantity > 0) {
@@ -67,6 +79,16 @@ public class Cart {
         }
     }
 
+    /**
+     * Removes a certain item x amount of times form a cart entry where x
+     * is quantity and item is the existing entry.
+     * 
+     * If the the existing quantity - passed in quantity <= 0, then the cart 
+     * entry is removed entriely from the cart.
+     * 
+     * @param item Item to remove
+     * @param quantity How many instances of the item you'd like to remove
+     */
     public void removeCartEntry(Item item, int quantity) {
 
         for (int i = 0; i < cartEntries.size(); i++) {
@@ -82,18 +104,29 @@ public class Cart {
         }
     }
 
+    /**
+     * @return All carty entries that the cart contains
+     */
     public CartEntry[] getEntries() {
         CartEntry[] temp = new CartEntry[cartEntries.size()];
         temp = cartEntries.toArray(temp);
         return temp;
     }
 
+    /**
+     * Creates a purchase object from the existing cart entries that the cart
+     * contains and saves it to the database.
+     * 
+     * @param customer The customer making the purchase
+     * @param address The address the items will be shipped to
+     * @param card The credit card that the purchase will be charged too.
+     * @return 
+     */
     public Purchase purchase(User customer, String address, String card) {
         Purchase purchase = new Purchase(customer, address, card, getEntries());
         customer.addPurchase(purchase);
         cartEntries.clear();
         Database.addPurchase(purchase);
-        
         return purchase;
     }
 

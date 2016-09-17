@@ -26,14 +26,37 @@ package se.arc.a3.Checkout;
 import se.arc.a3.User.User;
 
 /**
- *
+ * The purchase object represents a single purchase made by a single user
+ * which is composed of relevant user information for making a purchase and
+ * the items that the user is purchasing.
+ * 
  * @author Eli
  */
 public class Purchase {
     
+    /**
+     * All variables are final because once a purchase has been created we do
+     * not want it to be modified in any way
+     */
+    
+    /**
+     * Address of where the order will ship too
+     */
     private final String address;
+    
+    /**
+     * The different items that will be shipped to the user
+     */
     private final CartEntry[] items;
+    
+    /**
+     * The user that made the purchase
+     */
     private final User user;
+    
+    /**
+     * The card that the purchase will be charged too.
+     */
     private final String creditCardNumber;
     
     public Purchase(User user, String address, String creditcardNumber, CartEntry[] cart){
@@ -51,7 +74,6 @@ public class Purchase {
     }
     
     /**
-     * 
      * @return price of all cart entries added together 
      */
     public double getPrice() {

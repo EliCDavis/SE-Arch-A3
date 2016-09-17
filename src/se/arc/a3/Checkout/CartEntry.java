@@ -26,7 +26,10 @@ package se.arc.a3.Checkout;
 import se.arc.a3.Shop.Item;
 
 /**
- *
+ * A cart entry keeps up with a single item and the quantity of that item.
+ * So if you ordered 4 pairs of socks then the cart entry would have an item
+ * sock and the quantity of the entry would be 4.
+ * 
  * @author Eli
  */
 public class CartEntry {
@@ -39,18 +42,32 @@ public class CartEntry {
         this.quantity = quantity;
     }
     
+    /**
+     * @return Item price multiplied by the quantity
+     */
     public double getPrice() {
         return this.item.getPrice()*this.quantity;
     }
 
+    /**
+     * @return Item in the cart
+     */
     public Item getItem() {
         return this.item;
     }
     
+    /**
+     * How many number of items you would like of that item.
+     * 
+     * @param quantity that the cart entry will be set too
+     */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
     
+    /**
+     * @return the quantity
+     */
     public int getQuantity() {
         return this.quantity;
     }

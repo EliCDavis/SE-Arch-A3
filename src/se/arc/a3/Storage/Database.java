@@ -46,6 +46,11 @@ import se.arc.a3.Shop.ItemCategories.*;
  */
 public class Database {
 
+    /**
+     * Stringifies the purchase to be written to the database of purchases
+     * for data to persist across application uses.
+     * @param purchase 
+     */
     public static void addPurchase(Purchase purchase) {
         Writer output;
         try {
@@ -175,6 +180,12 @@ public class Database {
 
     }
 
+    /**
+     * Loads in the purchases as an array of String arrays which is an array
+     * of arguements as strings.
+     * 
+     * @return The lines in our database file
+     */
     private static String[][] getRawPurchaseData() {
         File file = new File("./src/se/arc/a3/Storage/db_purchase.txt");
         try {

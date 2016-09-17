@@ -28,12 +28,40 @@ import java.util.List;
 import se.arc.a3.Checkout.Cart;
 import se.arc.a3.Checkout.Purchase;
 
+/**
+ * Class that represents a single user which has an account with our shopping
+ * system.
+ * 
+ * @author Eli
+ */
 public class User {
 
+    /**
+     * Birth name of user
+     */
     private final String name;
+    
+    /**
+     * username of the user of what they use to log in with also doubles as 
+     * an ID
+     */
     private final String id;
+    
+    /**
+     * The users credit card
+     */
     private String creditCardNumber;
+    
+    /**
+     * A collection of items and quantities that the user has decided they 
+     * wanted to buy.
+     */
     private final Cart cart;
+    
+    /**
+     * A history of purchases the user has made since the creation of their 
+     * account (persistent in a database)
+     */
     private final List<Purchase> purchases;
 
     public User(String name, String id) {
@@ -43,10 +71,19 @@ public class User {
         this.purchases = new ArrayList<>();
     }
 
+    /**
+     * @return All purchases the user has made since account creation
+     */
     public Purchase[] viewPastPurchases() {
         return purchases.toArray(new Purchase[purchases.size()]);
     }
 
+    /**
+     * Adds a purchase to the user history.
+     * **This does not add the purchase to the database**
+     * 
+     * @param newPurchase The purchase to add
+     */
     public void addPurchase(Purchase newPurchase) {
 
         if (newPurchase == null) {
@@ -56,18 +93,30 @@ public class User {
         this.purchases.add(newPurchase);
     }
 
+    /**
+     * @return the user's credit card number
+     */
     public String getCreditCardNumber() {
         return creditCardNumber;
     }
 
+    /**
+     * @return The user name
+     */
     public String getUsername() {
         return id;
     }
 
+    /**
+     * @return The birth name of the user
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @return The cart that the user has been building. 
+     */
     public Cart getCart() {
         return cart;
     }
